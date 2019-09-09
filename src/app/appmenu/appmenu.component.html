@@ -1,0 +1,13 @@
+<button mat-button [matMenuTriggerFor]="beforeMenu">My Account</button>
+<mat-menu #beforeMenu="matMenu" xPosition="before">
+  <button mat-menu-item routerLink="/">Terms & Conditions</button>
+  <button mat-menu-item>Logout</button>
+</mat-menu>
+
+
+<button mat-button [matMenuTriggerFor]="afterMenu">Beach House</button>
+<mat-menu #afterMenu="matMenu" xPosition="after">
+  <button mat-menu-item routerLink="/bookings">Bookings</button>
+  <button mat-menu-item (click)="onOpenDialog()">Book a visit</button>
+</mat-menu>
+

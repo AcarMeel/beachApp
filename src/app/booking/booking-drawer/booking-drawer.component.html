@@ -1,0 +1,22 @@
+<section class="drawer-section">
+    <h1>Drawer Content Details for {{data.name}}</h1>
+
+    <div *ngIf="detailsData">
+        <p>
+            <strong>Total Paid:</strong>{{ detailsData.pricing | currency:'USD' }}
+        </p>
+        <p>
+            <strong>Visit Date:</strong> {{ detailsData.startDate | date: 'MM/dd/yyyy' }}
+        </p>
+        <p>
+            <strong>End Date:</strong> {{ detailsData.endDate | date: 'MM/dd/yyyy' }}
+        </p>
+        <p>
+            <strong>You made the following observations:</strong>
+            <em>{{detailsData.observations}}</em>
+        </p>
+    </div>
+    <p *ngIf="!detailsData">
+        No details found
+    </p>
+</section>

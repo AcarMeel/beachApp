@@ -1,1 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face {
+  font-family: PopLight;
+  src: url("./assets/fonts/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: PopRegular;
+  src: url("./assets/fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+    font-family: PopMedium;
+    src: url("./assets/fonts/Poppins-Medium.ttf");
+  }
+
+body {
+    font-family: 'PopLight';
+}
+
+.font-regular {
+    font-family: 'PopRegular';
+}
+
+.font-medium {
+    font-family: 'PopMedium';
+}
+
+.mr16 {
+    margin-right: 16px;
+}
+
+.mr24 {
+    margin-right: 24px;
+}
+
+.mr32 {
+    margin-right: 32px;
+}
+
+.m24 {
+    margin: 24px 0;
+}
+
+.fade-text {
+    opacity: 0.6;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.header-color {
+    background-color: #673ab7;
+}
+
+.mat-header-cell {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tac {
+    text-align: center;
+}
+
+.tal {
+    text-align: left;
+}
+
+.tar {
+    text-align: right;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.float-r {
+    float: right;
+}
+
+.float-l {
+    float: left;
+}
+
+.clearfix {
+    clear: both;
+}

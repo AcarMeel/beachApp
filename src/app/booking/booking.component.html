@@ -1,0 +1,25 @@
+<mat-card class="tal">
+    <button mat-fab (click)="onOpenForm()" color="accent">
+        <mat-icon>add</mat-icon>
+    </button>
+</mat-card>
+<mat-card class="tac">
+    <mat-form-field>
+        <mat-label class="upper">Select a filter</mat-label>
+        <mat-select [(value)]="selected" (selectionChange)="onFilter()">
+            <mat-option value="all">All bookings</mat-option>
+            <mat-option value="my">All my bookings</mat-option>
+            <mat-option value="date" disabled>Filter by Date Range</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-card>
+
+<mat-card *ngIf="tableData">
+    <app-booking-table [ElementData]="tableData"></app-booking-table>
+</mat-card>
+
+<mat-card class="tac m24 fade-text" *ngIf="!tableData">
+    <em>
+        Loading the <span class="upper"><strong>{{ selected }} bookings</strong></span> filter ...
+    </em>
+</mat-card>

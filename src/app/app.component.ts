@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'beachhouseapp';
+  public title: string = 'Beach House Benefit';
+  public slogan: string = 'Work happy & deliver quality';
 }
