@@ -5,6 +5,10 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 // Models
 import { Element } from "../../models/element";
 
+// Service
+import { FormService } from "../../services/form.service";
+import { Subscription } from 'rxjs';
+
 
 
 // const ELEMENT_DATA: Element[] = [
@@ -49,8 +53,17 @@ export class BookingTableComponent implements OnInit {
   dataSource = new MatTableDataSource<Element>(this.ElementData);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   expandedElement: Element;
+  public subscription: Subscription;
 
-  constructor() { }
+  constructor(private formService: FormService) {
+    this.subscription = this.formService.getElement()
+      .subscribe((element) => {
+          if (element) {
+            this.dataSource.data = this.ElementData;
+            this.dataSource.paginator = this.paginator;
+          }
+      });
+   }
 
   ngOnInit() {
     this.dataSource.data = this.ElementData;

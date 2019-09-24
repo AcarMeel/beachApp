@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Subscription } from 'rxjs';
 
 // Components
 import { BookingFormComponent } from "./booking-form/booking-form.component";
 
 // Services
 import { BookingService } from "../services/booking.service";
+import { FormService } from "../services/form.service";
+
 
 
 @Component({
@@ -13,11 +16,25 @@ import { BookingService } from "../services/booking.service";
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css']
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent implements OnInit, OnDestroy {
   selected = 'all';
   tableData = null;
+  public subscription: Subscription;
   constructor(private bookingService: BookingService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private formService: FormService) { 
+      this.subscription = this.formService.getElement()
+      .subscribe((element) => {
+          if (element) {
+            let tempData = this.tableData;
+            this.tableData = null;
+            const newId = tempData.length + 1;
+            element['id'] = newId;
+            tempData.splice(0,0,element);
+            this.tableData = tempData;
+          }
+      });
+    }
 
   ngOnInit() {
     this.onFilter();
@@ -62,5 +79,11 @@ export class BookingComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+        this.subscription.unsubscribe();
+    }
+}
 
 }

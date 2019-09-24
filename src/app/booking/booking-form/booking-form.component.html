@@ -2,33 +2,58 @@
 <div mat-dialog-content>
     <form class="example-form" [formGroup]="bookingForm">
         <mat-form-field class="mr32" appearance="outline">
-            <input matInput [matDatepicker]="startDate" placeholder="Select a start date" formControlName="startDate">
+            <input matInput [matDatepicker]="startDate" placeholder="Select a start date" formControlName="startDate"
+                [max]="maxStartDate" [min]="minStartDate" (dateInput)="changeDate('start', $event)"
+                (dateChange)="changeDate('start', $event)" [errorStateMatcher]="matcher">
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-            <mat-datepicker #startDate></mat-datepicker>
+            <mat-datepicker #startDate disabled="false"></mat-datepicker>
+            <mat-error *ngIf="bookingForm.controls.startDate.hasError('required')">
+                Start Date is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="endDate" placeholder="Select an end date" formControlName="endDate">
+            <input matInput [matDatepicker]="endDate" placeholder="Select an end date" formControlName="endDate"
+                [max]="maxEndDate" [min]="minEndDate" (dateInput)="changeDate('end', $event)"
+                (dateChange)="changeDate('end', $event)" [errorStateMatcher]="matcher">
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-            <mat-datepicker #endDate></mat-datepicker>
+            <mat-datepicker #endDate disabled="false"></mat-datepicker>
+            <mat-error *ngIf="bookingForm.controls.endDate.hasError('required')">
+                End Date is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
+        <span class="ml16">
+            <strong>Total Days:</strong> {{ totalCost.days }}
+        </span>
         <p>
             <mat-form-field appearance="outline" class="lg-field">
                 <mat-label>How many people?</mat-label>
                 <mat-icon matSuffix>beach_access</mat-icon>
-                <mat-select formControlName="peopleQuantity">
+                <mat-select formControlName="peopleQuantity" [errorStateMatcher]="matcher">
                     <mat-option *ngFor="let qty of numbers" [value]="qty.value">
                         {{qty.viewValue}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="bookingForm.controls.peopleQuantity.hasError('required')">
+                    Quantity is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
         </p>
+        <span>
+            <strong>You will pay a total of:</strong> {{ totalCost.cost | currency }}
+        </span>
 
         <p>
             <mat-form-field appearance="outline" class="lg-field">
                 <mat-label>Enter an email to send confirmation</mat-label>
-                <input matInput placeholder="Email" formControlName="confirmationEmail">
+                <input matInput placeholder="Email" formControlName="confirmationEmail" [errorStateMatcher]="matcher">
                 <mat-icon matSuffix>mail</mat-icon>
-                <mat-hint>Hint</mat-hint>
+                <mat-hint>Sample myemail.cool.com</mat-hint>
+                <mat-error *ngIf="bookingForm.controls.confirmationEmail.hasError('email') && !bookingForm.controls.confirmationEmail.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="bookingForm.controls.confirmationEmail.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
         </p>
 
@@ -40,5 +65,5 @@
 </div>
 <div mat-dialog-actions class="float-r">
     <button mat-button (click)="onNoClick()">Close</button>
-    <button mat-button (click)="onSave()" mat-raised-button color="primary">Save</button>
+    <button [disabled]="bookingForm.invalid" mat-button (click)="onSave()" mat-raised-button color="primary">Save</button>
 </div>

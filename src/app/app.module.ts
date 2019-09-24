@@ -13,6 +13,8 @@ import { AppmenuComponent } from './appmenu/appmenu.component';
 import { TermsComponent } from './terms/terms.component';
 import { BookingModule } from './booking/booking.module';
 
+import { FormService } from "./services/form.service";
+
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { BookingModule } from './booking/booking.module';
     BookingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    FormService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
