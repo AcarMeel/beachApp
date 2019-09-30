@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { createCustomElement } from "@angular/elements";
 
 import {MaterialModule} from '../material.module';
 
@@ -38,4 +39,9 @@ import { BookingService } from "../services/booking.service";
         BookingFormComponent
     ]
 })
-export class BookingModule {}
+export class BookingModule {
+    constructor(private injector: Injector) {
+        const el = createCustomElement(BookingComponent, {injector});
+        customElements.define('booking-component', el);
+    }
+}
