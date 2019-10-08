@@ -38,6 +38,8 @@ export class BookingFormComponent implements OnInit {
   minEndDate = new Date();
   maxEndDate = new Date(this.maxdate);
   matcher = new MyErrorStateMatcher();
+  totalDays = 0;
+  totalCost = 0;
   public bookingForm = new FormGroup({
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
@@ -82,7 +84,7 @@ export class BookingFormComponent implements OnInit {
     return diffDays;
   }
 
-  get totalCost() {
+  getTotalCost() {
     let days = 0, cost = 0;
     const notEmpty = this.bookingForm.get('startDate').value !== null && this.bookingForm.get('endDate').value !== null;
     const isValid = this.bookingForm.get('startDate').valid && this.bookingForm.get('endDate').valid;
@@ -91,10 +93,9 @@ export class BookingFormComponent implements OnInit {
       days = this.onGetDays();
       cost = parseInt(people) * days * 30;
     }
-    return {
-      days,
-      cost
-    };
+    
+    this.totalDays = days;
+    this.totalCost = cost;
   }
 
   ngOnInit() {
@@ -104,6 +105,7 @@ export class BookingFormComponent implements OnInit {
     if (type === 'start') {
       this.minEndDate = event.value;
     }
+    this.getTotalCost();
   }
 
 }

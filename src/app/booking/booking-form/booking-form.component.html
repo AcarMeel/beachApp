@@ -22,14 +22,14 @@
             </mat-error>
         </mat-form-field>
         <span class="ml16">
-            <strong>Total Days:</strong> {{ totalCost.days }}
+            <strong>Total Days:</strong> {{ totalDays }}
         </span>
         <p>
             <mat-form-field appearance="outline" class="lg-field">
                 <mat-label>How many people?</mat-label>
                 <mat-icon matSuffix>beach_access</mat-icon>
-                <mat-select formControlName="peopleQuantity" [errorStateMatcher]="matcher">
-                    <mat-option *ngFor="let qty of numbers" [value]="qty.value">
+                <mat-select formControlName="peopleQuantity" [errorStateMatcher]="matcher" (selectionChange)="getTotalCost()">
+                    <mat-option *ngFor="let qty of numbers; trackBy: trackByFn" [value]="qty.value">
                         {{qty.viewValue}}
                     </mat-option>
                 </mat-select>
@@ -39,7 +39,7 @@
             </mat-form-field>
         </p>
         <span>
-            <strong>You will pay a total of:</strong> {{ totalCost.cost | currency }}
+            <strong>You will pay a total of:</strong> {{ totalCost | currency }}
         </span>
 
         <p>

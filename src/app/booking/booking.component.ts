@@ -72,6 +72,7 @@ export class BookingComponent implements OnInit, OnDestroy {
 
   public onOpenForm() {
     let dialogRef = this.dialog.open(BookingFormComponent, {
+      disableClose: true,
       height: 'auto',
       width: '1088px',
     });

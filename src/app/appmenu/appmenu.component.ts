@@ -24,6 +24,7 @@ export class AppmenuComponent implements OnInit {
 
   onOpenDialog() {
     let dialogRef = this.dialog.open(BookingFormComponent, {
+      disableClose: true,
       height: 'auto',
       width: '1088px',
     });
