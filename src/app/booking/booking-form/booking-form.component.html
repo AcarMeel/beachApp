@@ -29,7 +29,7 @@
                 <mat-label>How many people?</mat-label>
                 <mat-icon matSuffix>beach_access</mat-icon>
                 <mat-select formControlName="peopleQuantity" [errorStateMatcher]="matcher" (selectionChange)="getTotalCost()">
-                    <mat-option *ngFor="let qty of numbers; trackBy: trackByFn" [value]="qty.value">
+                    <mat-option *ngFor="let qty of numbers" [value]="qty.value">
                         {{qty.viewValue}}
                     </mat-option>
                 </mat-select>
